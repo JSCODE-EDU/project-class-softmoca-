@@ -13,13 +13,14 @@ export class PostService {
   async createPost(title: string, content: string) {
     const post = new Post();
     (post.title = title), (post.content = content);
-    await this.postRepository.save(post);
-    return {
-      post,
-    };
+    return await this.postRepository.save(post);
   }
 
-  async findAllPost() {
+  async getAllPost() {
     return await this.postRepository.find();
+  }
+
+  async getOnePost(id: number) {
+    return await this.postRepository.findOneBy({ id });
   }
 }
