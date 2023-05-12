@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 
@@ -10,5 +10,10 @@ export class PostController {
   create(@Body() createPostDto: CreatePostDto) {
     const { title, content } = createPostDto;
     return this.postservice.createPost(title, content);
+  }
+
+  @Get('/find')
+  getAllPost() {
+    return this.postservice.findAllPost();
   }
 }
