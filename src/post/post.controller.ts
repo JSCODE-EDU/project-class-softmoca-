@@ -40,4 +40,9 @@ export class PostController {
   async delete(@Param('id') id: number) {
     return await this.postservice.delete(id);
   }
+
+  @Get('/search/:title')
+  async search(@Param('title') title: string) {
+    return await this.postservice.search(title);
+  }
 }
