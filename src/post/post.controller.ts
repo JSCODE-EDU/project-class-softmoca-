@@ -6,10 +6,17 @@ import {
   Param,
   Patch,
   Post,
+  ValidationPipe,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { IsNotEmpty, IsString, MinLength } from 'class-validator';
+class SearchTitleParams {
+  @IsNotEmpty()
+  @MinLength(1)
+  title: string;
+}
 
 @Controller('posts')
 export class PostController {
@@ -42,7 +49,13 @@ export class PostController {
   }
 
   @Get('/search/:title')
-  async search(@Param('title') title: string) {
+  async search(@Param('title', ValidationPipe) params: SearchTitleParams) {
+    const { title } = params;
     return await this.postservice.search(title);
   }
+
+  // @Get('/search/:title')
+  // async search(@Param('title') title: string) {
+  //   return await this.postservice.search(title);
+  // }
 }
