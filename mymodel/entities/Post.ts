@@ -17,5 +17,5 @@ export class Post {
   content: string;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date | null;
+  createdAt: Date;
 }

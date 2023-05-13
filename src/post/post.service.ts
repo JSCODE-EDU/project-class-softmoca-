@@ -18,6 +18,7 @@ export class PostService {
   }
 
   async getAllPost() {
+    console.log(process.env);
     return await this.postRepository.find({
       take: 5,
       order: { createdAt: 'desc' },
