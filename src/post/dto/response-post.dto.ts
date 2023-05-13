@@ -1,6 +1,13 @@
 import { IsNotEmpty, MaxLength, MinLength, Matches } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-export class UpdatePostDto {
+export class ResponsePostDto {
+  @ApiProperty({
+    example: '23',
+    description: '게시물 인덱스 ',
+    required: true,
+  })
+  id: number;
+
   @ApiProperty({
     example: 'hello everybody',
     description: '수정된 게시물의 제목',
