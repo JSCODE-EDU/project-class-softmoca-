@@ -1,5 +1,6 @@
 import { Post } from './../mymodel/entities/Post';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -8,12 +9,13 @@ import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
+      host: process.env.HOST,
+      port: +process.env.PORT, //이부분은 환경 변수 안되는데 질문  process.env.PORT  3306
       username: 'root',
-      password: '0000',
+      password: process.env.PASSWORD,
       database: 'nest_board',
       entities: [Post],
       synchronize: true,
