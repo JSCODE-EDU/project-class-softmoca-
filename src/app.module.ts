@@ -13,7 +13,7 @@ import { PostModule } from './post/post.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.HOST,
-      port: 3306, //이부분은 환경 변수 안되는데 질문
+      port: +process.env.PORT, //이부분은 환경 변수 안되는데 질문  process.env.PORT  3306
       username: 'root',
       password: process.env.PASSWORD,
       database: 'nest_board',
