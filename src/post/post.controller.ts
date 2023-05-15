@@ -142,6 +142,7 @@ export class PostController {
   @ApiOperation({ summary: ' API NO.6  게시물 제목 검색해서 가져오기' })
   @Get('/search/:title')
   async search(@Param('title', ValidationPipe) params: SearchTitleParams) {
+    // 질문
     const { title } = params;
     return await this.postservice.search(title);
   }
