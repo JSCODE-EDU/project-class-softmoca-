@@ -3,9 +3,11 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
   Param,
   Patch,
   Post,
+  UseFilters,
   ValidationPipe,
 } from '@nestjs/common';
 import { PostService } from './post.service';
@@ -20,6 +22,7 @@ import {
   ApiBody,
 } from '@nestjs/swagger';
 import { ResponsePostDto } from './dto/response-post.dto';
+import { HttpExceptionFilter } from 'src/http-exception.filter';
 class SearchTitleParams {
   @IsNotEmpty()
   @MinLength(1)
@@ -69,6 +72,7 @@ export class PostController {
   // description: 'example create post request body',
   // type:CreatePostDto,
   // }
+  @UseFilters(HttpExceptionFilter)
   @ApiResponse({
     status: 500,
     description: 'Server error..',
@@ -81,6 +85,7 @@ export class PostController {
   @ApiOperation({ summary: 'API NO.3 게시물 생성하기' })
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
+    throw new HttpException('api is broken', 401);
     const { title, content } = createPostDto;
     return this.postservice.createPost(title, content);
   }
