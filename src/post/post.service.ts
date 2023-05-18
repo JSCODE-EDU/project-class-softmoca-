@@ -11,13 +11,13 @@ export class PostService {
     private postRepository: Repository<Post>,
   ) {}
 
-  async createPost(title: string, content: string) {
+  async createPost(title: string, content: string): Promise<Post> {
     const post = new Post();
     (post.title = title), (post.content = content);
     return await this.postRepository.save(post);
   }
 
-  async getAllPost() {
+  async getAllPost(): Promise<Post[]> {
     //console.log(process.env);
     return await this.postRepository.find({
       take: 5,
@@ -25,7 +25,7 @@ export class PostService {
     });
   }
 
-  async getOnePost(id: number) {
+  async getOnePost(id: number): Promise<Post> {
     const post = await this.postRepository.findOne({ where: { id } });
     if (!post) {
       throw new NotFoundException(`Post with ID ${id} not found`);
@@ -34,7 +34,7 @@ export class PostService {
     return post;
   }
 
-  async update(id: number, updataPostDto: UpdatePostDto) {
+  async update(id: number, updataPostDto: UpdatePostDto): Promise<Post> {
     const post = await this.getOnePost(id);
     const { title, content } = updataPostDto;
 
@@ -44,7 +44,7 @@ export class PostService {
     return await this.postRepository.save(post);
   }
 
-  async delete(id: number) {
+  async delete(id: number): Promise<Post> {
     const post = await this.postRepository.findOne({ where: { id } });
     if (!post) {
       throw new NotFoundException(`Post with ID ${id} not found`);
@@ -53,7 +53,7 @@ export class PostService {
     return post;
   }
 
-  async search(title: string) {
+  async search(title: string): Promise<Post[]> {
     const posts = await this.postRepository.find({
       where: { title: Like(`%${title}%`) },
       order: { createdAt: 'desc' },

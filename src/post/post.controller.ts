@@ -80,7 +80,7 @@ export class PostController {
   @ApiOperation({ summary: 'API NO.3 게시물 생성하기' })
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
-    throw new HttpException('api is broken', 401);
+    //throw new HttpException('api is broken', 401);
     const { title, content } = createPostDto;
     return this.postservice.createPost(title, content);
   }
