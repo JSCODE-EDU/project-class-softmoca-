@@ -8,12 +8,10 @@ import {
   Patch,
   Post,
   UseFilters,
-  ValidationPipe,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 import {
   ApiOperation,
   ApiParam,
@@ -23,11 +21,8 @@ import {
 } from '@nestjs/swagger';
 import { ResponsePostDto } from './dto/response-post.dto';
 import { HttpExceptionFilter } from 'src/http-exception.filter';
-class SearchTitleParams {
-  @IsNotEmpty()
-  @MinLength(1)
-  title: string;
-}
+import { SearchTitleDto } from './dto/search-title.dto';
+
 @ApiTags('Post')
 @Controller('posts')
 export class PostController {
@@ -85,7 +80,7 @@ export class PostController {
   @ApiOperation({ summary: 'API NO.3 게시물 생성하기' })
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
-    throw new HttpException('api is broken', 401);
+    //throw new HttpException('api is broken', 401);
     const { title, content } = createPostDto;
     return this.postservice.createPost(title, content);
   }
@@ -146,8 +141,7 @@ export class PostController {
   })
   @ApiOperation({ summary: ' API NO.6  게시물 제목 검색해서 가져오기' })
   @Get('/search/:title')
-  async search(@Param('title', ValidationPipe) params: SearchTitleParams) {
-    // 질문
+  async search(@Param() params: SearchTitleDto) {
     const { title } = params;
     return await this.postservice.search(title);
   }

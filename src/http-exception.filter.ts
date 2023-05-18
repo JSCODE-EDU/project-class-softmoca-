@@ -20,12 +20,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
         statusCode: status,
         timestamp: new Date().toISOString(),
         path: request.url,
-        error,
+        message: error,
       });
     } else {
       response.status(status).json({
         ...error,
         statusCode: globalstatus,
+        message: 'An unexpected error occurs',
         timestamp: new Date().toISOString(),
         path: request.url,
       });
