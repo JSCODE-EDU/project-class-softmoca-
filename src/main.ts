@@ -21,7 +21,7 @@ async function bootstrap() {
     origin: true, // 개발시에는 treu 그러면 어떤 프론트도 접근가능, 배포시 특정 url
     credentials: true, // 백과 프론트 모두에서 true로 해줘야한다.
   });
-  app.useGlobalFilters(new HttpExceptionFilter());
+  //app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(3000);
 }
 bootstrap();
