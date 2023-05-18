@@ -44,12 +44,21 @@ export class PostService {
     return await this.postRepository.save(post);
   }
 
+  // async delete(id: number): Promise<Post> {
+  //   const post = await this.postRepository.delete(id);
+  //   if (!post) {
+  //     throw new NotFoundException(`Post with ID ${id} not found`);
+  //   }
+
+  //   return post;
+  // }
+
   async delete(id: number): Promise<Post> {
     const post = await this.postRepository.findOne({ where: { id } });
     if (!post) {
       throw new NotFoundException(`Post with ID ${id} not found`);
     }
-
+    await this.postRepository.delete(id);
     return post;
   }
 
