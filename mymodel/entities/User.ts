@@ -1,27 +1,25 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity() //"User", { schema: "immersion_DB" })  TODO
+@Entity('user', { schema: 'nest_board' })
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: 'int', name: 'userIdx' })
   userIdx: number;
 
-  @Column()
-  email: string | null;
+  @Column('varchar', { name: 'email', length: 255 })
+  email: string;
+
+  @Column('varchar', { name: 'password', length: 255 })
+  password: string;
+
+  @Column('datetime', {
+    name: 'signupTime',
+    default: () => "'CURRENT_TIMESTAMP(6)'",
+  })
+  signupTime: Date;
 
   @Column('varchar', { name: 'nickName', nullable: true, length: 20 })
   nickName: string | null;
 
   @Column('char', { name: 'phone', nullable: true, length: 11 })
   phone: string | null;
-
-  @Column()
-  password: string | null;
-
-  @CreateDateColumn()
-  signupTime: Date;
 }

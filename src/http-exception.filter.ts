@@ -16,7 +16,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const status = exception.getStatus();
     const error = exception.getResponse();
 
-    console.log(error); // error 객체 내부의 값 바꾸는법 질문
+    //console.log(error); // error 객체 내부의 값 바꾸는법 질문
     //     {
     //   statusCode: 404,
     //   message: 'Post with ID 4 not found',
