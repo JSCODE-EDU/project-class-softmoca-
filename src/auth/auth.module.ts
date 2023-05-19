@@ -13,7 +13,7 @@ import { UsersModule } from 'src/users/users.module';
     TypeOrmModule.forFeature([User]),
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     JwtModule.register({
-      secret: 'sercetkey',
+      secret: 'sercetkey', //토큰생성시 사용
       signOptions: { expiresIn: '60s' },
     }),
     forwardRef(() => UsersModule),
