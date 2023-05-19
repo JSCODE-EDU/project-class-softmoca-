@@ -6,6 +6,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DataSource } from 'typeorm';
 import { PostModule } from './post/post.module';
+import { UsersModule } from './users/users.module';
+import { User } from 'mymodel/entities/User';
 
 @Module({
   imports: [
@@ -17,10 +19,11 @@ import { PostModule } from './post/post.module';
       username: 'root',
       password: process.env.PASSWORD,
       database: 'nest_board',
-      entities: [Post],
+      entities: [Post, User],
       synchronize: true,
     }),
     PostModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

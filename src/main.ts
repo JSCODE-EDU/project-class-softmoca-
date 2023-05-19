@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { HttpExceptionFilter } from './http-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   const config = new DocumentBuilder()
     .setTitle('JSCODE API')
@@ -21,7 +21,7 @@ async function bootstrap() {
     origin: true, // 개발시에는 treu 그러면 어떤 프론트도 접근가능, 배포시 특정 url
     credentials: true, // 백과 프론트 모두에서 true로 해줘야한다.
   });
-  //app.useGlobalFilters(new HttpExceptionFilter());
-  await app.listen(3000);
+  app.useGlobalFilters(new HttpExceptionFilter()); //class vaildator랑 겹쳐서 우선 주석
+  await app.listen(+process.env.MAINPORT);
 }
 bootstrap();
