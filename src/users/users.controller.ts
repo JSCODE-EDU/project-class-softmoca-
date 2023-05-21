@@ -23,7 +23,7 @@ export class UsersController {
   @ApiOperation({ summary: '회원가입' })
   @Post('create')
   async createUsers(@Body() data: CreateUserDto) {
-    await this.usersService.createUsers(
+    return await this.usersService.createUsers(
       data.email,
       data.nickName,
       data.phone,
