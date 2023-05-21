@@ -6,6 +6,8 @@ import { ApiOperation } from '@nestjs/swagger';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
+import { CurrentUser } from 'src/common/user.decorator';
+import { User } from 'mymodel/entities/User';
 
 @Controller('users')
 export class UsersController {
@@ -37,7 +39,7 @@ export class UsersController {
 
   @Post('test')
   @UseGuards(JwtAuthGuard)
-  tset(@Req() req) {
-    console.log('req', req);
+  tset(@CurrentUser() user: User) {
+    return user;
   }
 }

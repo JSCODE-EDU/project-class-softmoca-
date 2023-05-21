@@ -4,6 +4,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'mymodel/entities/User';
 import { Repository } from 'typeorm';
+import { Payload } from './jwt.payloads';
 
 @Injectable() // 다른곳에서도 사용하기 위해
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -19,13 +20,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
+  async validate(payload: Payload) {
     const { email } = payload;
     const user: User = await this.userRepository.findOneBy({ email });
-
-    if (!user) {
-      throw new UnauthorizedException();
-    }
 
     if (user) {
       return user; // request.user
