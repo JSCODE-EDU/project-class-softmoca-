@@ -14,7 +14,7 @@ import { UsersModule } from 'src/users/users.module';
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     JwtModule.register({
       secret: 'sercetkey', //토큰생성시 사용
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '600s' },
     }),
     forwardRef(() => UsersModule),
   ],

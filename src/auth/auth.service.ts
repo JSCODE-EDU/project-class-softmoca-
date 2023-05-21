@@ -17,6 +17,7 @@ export class AuthService {
   async jwtLogIn(data: LoginRequestDto) {
     const { email, password } = data;
     const user = await this.userRepository.findOneBy({ email });
+    const userWithoutPassword = { ...user };
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const payload = { email };
