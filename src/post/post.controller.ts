@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -22,9 +23,11 @@ import {
 import { ResponsePostDto } from './dto/response-post.dto';
 import { HttpExceptionFilter } from 'src/http-exception.filter';
 import { SearchTitleDto } from './dto/search-title.dto';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 
 @ApiTags('Post')
 @Controller('posts')
+@UseGuards(JwtAuthGuard)
 export class PostController {
   constructor(private postservice: PostService) {}
 

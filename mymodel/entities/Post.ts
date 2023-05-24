@@ -1,21 +1,19 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity('post', { schema: 'nest_board' })
 export class Post {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
-  @Column()
+  @Column('varchar', { name: 'title', length: 255 })
   title: string;
 
-  @Column()
+  @Column('varchar', { name: 'content', length: 255 })
   content: string;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @Column('datetime', {
+    name: 'created_at',
+    default: () => "'CURRENT_TIMESTAMP(6)'",
+  })
   createdAt: Date;
 }
